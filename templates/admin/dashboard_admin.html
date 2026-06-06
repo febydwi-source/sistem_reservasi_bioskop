@@ -1,0 +1,259 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="card-body p-4">
+
+    <h2 class="fw-bold mb-1">
+
+        🎬 Dashboard Admin
+
+    </h2>
+
+    <p class="text-muted mb-0">
+
+        Kelola seluruh aktivitas CineReserve dari satu tempat.
+
+    </p>
+
+</div>
+<div class="col-md-3">
+
+    <div class="card border-0 shadow bg-primary text-white">
+
+        <div class="card-body text-center">
+
+            <i class="bi bi-film fs-1"></i>
+
+            <h6 class="mt-2">Film</h6>
+
+            <h2 class="fw-bold">
+
+                {{ total_film }}
+
+            </h2>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="col-md-3">
+
+    <div class="card border-0 shadow bg-success text-white">
+
+        <div class="card-body text-center">
+
+            <i class="bi bi-building fs-1"></i>
+
+            <h6 class="mt-2">Studio</h6>
+
+            <h2 class="fw-bold">
+
+                {{ total_studio }}
+
+            </h2>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="col-md-3">
+
+    <div class="card border-0 shadow bg-warning">
+
+        <div class="card-body text-center">
+
+            <i class="bi bi-grid-3x3-gap-fill fs-1"></i>
+
+            <h6 class="mt-2">Kursi</h6>
+
+            <h2 class="fw-bold">
+
+                {{ total_kursi }}
+
+            </h2>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="col-md-3">
+
+    <div class="card border-0 shadow bg-danger text-white">
+
+        <div class="card-body text-center">
+
+            <i class="bi bi-calendar-event fs-1"></i>
+
+            <h6 class="mt-2">Jadwal</h6>
+
+            <h2 class="fw-bold">
+
+                {{ total_jadwal }}
+
+            </h2>
+
+        </div>
+
+    </div>
+
+</div>
+<div class="col-md-4">
+
+    <div class="card border-0 shadow bg-info text-white">
+
+        <div class="card-body text-center">
+
+            <i class="bi bi-ticket-perforated-fill fs-1"></i>
+
+            <h6 class="mt-2">Reservasi</h6>
+
+            <h2 class="fw-bold">
+
+                {{ total_reservasi }}
+
+            </h2>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="col-md-4">
+
+    <div class="card border-0 shadow bg-secondary text-white">
+
+        <div class="card-body text-center">
+
+            <i class="bi bi-credit-card-fill fs-1"></i>
+
+            <h6 class="mt-2">Pembayaran</h6>
+
+            <h2 class="fw-bold">
+
+                {{ total_pembayaran }}
+
+            </h2>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="col-md-4">
+
+    <div class="card border-0 shadow bg-dark text-white">
+
+        <div class="card-body text-center">
+
+            <i class="bi bi-qr-code-scan fs-1"></i>
+
+            <h6 class="mt-2">Tiket</h6>
+
+            <h2 class="fw-bold">
+
+                {{ total_tiket }}
+
+            </h2>
+
+        </div>
+
+    </div>
+
+</div>
+<div class="card-body text-center p-5">
+
+    <h5 class="text-muted">
+
+        Total Pendapatan
+
+    </h5>
+
+    <h1 class="fw-bold text-success">
+
+        Rp {{ total_pendapatan }}
+
+    </h1>
+
+</div>
+<div class="col-md-6">
+
+    <div class="card border-0 shadow">
+
+        <div class="card-header bg-primary text-white">
+
+            ⚡ Menu Cepat
+
+        </div>
+
+        <div class="card-body d-grid gap-2">
+
+            <a href="{% url 'film_create' %}" class="btn btn-outline-primary">
+
+                Tambah Film
+
+            </a>
+
+            <a href="{% url 'studio_create' %}" class="btn btn-outline-success">
+
+                Tambah Studio
+
+            </a>
+
+            <a href="{% url 'jadwal_create' %}" class="btn btn-outline-danger">
+
+                Tambah Jadwal
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="col-md-6">
+
+    <div class="card border-0 shadow">
+
+        <div class="card-header bg-success text-white">
+
+            📊 Ringkasan Sistem
+
+        </div>
+
+        <div class="card-body">
+
+            <p>Total Film : <strong>{{ total_film }}</strong></p>
+
+            <p>Total Reservasi : <strong>{{ total_reservasi }}</strong></p>
+
+            <p>Total Tiket : <strong>{{ total_tiket }}</strong></p>
+
+            <p class="mb-0">
+
+                Pendapatan :
+
+                <strong>
+
+                    Rp {{ total_pendapatan }}
+
+                </strong>
+
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

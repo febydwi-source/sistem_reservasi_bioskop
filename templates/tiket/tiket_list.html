@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div>
+
+    <h2 class="fw-bold">
+        🎫 Data Tiket
+    </h2>
+
+    <p class="text-muted mb-0">
+        Semua tiket yang telah diterbitkan sistem.
+    </p>
+
+</div>
+{% for tiket in data %}
+
+<div class="col-lg-4 mb-4">
+
+    <div class="card shadow border-0 h-100">
+
+        <div class="card-header bg-dark text-white">
+
+            <div class="d-flex justify-content-between">
+
+                <strong>
+
+                    {{ tiket.kode_tiket }}
+
+                </strong>
+
+                {% if tiket.sudah_digunakan %}
+
+                <span class="badge bg-danger">
+
+                    Digunakan
+
+                </span>
+
+                {% else %}
+
+                <span class="badge bg-success">
+
+                    Aktif
+
+                </span>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+        <div class="card-body">
+
+            <h5 class="fw-bold">
+
+                🎬 {{ tiket.reservasi.jadwal.film.judul }}
+
+            </h5>
+
+            <hr>
+
+            <p>
+
+                👤 {{ tiket.reservasi.user.username }}
+
+            </p>
+
+            <p>
+
+                🏢 {{ tiket.reservasi.jadwal.studio.nama_studio }}
+
+            </p>
+
+            <p>
+
+                💺 {{ tiket.reservasi.kursi.nomor_kursi }}
+
+            </p>
+
+            <p>
+
+                📅 {{ tiket.reservasi.jadwal.tanggal }}
+
+            </p>
+
+            <p>
+
+                🕒 {{ tiket.reservasi.jadwal.jam_mulai }}
+
+            </p>
+
+        </div>
+
+        <div class="card-footer bg-white border-0">
+
+            {% if not tiket.sudah_digunakan %}
+
+            <a
+                href="{% url 'validasi_tiket' tiket.pk %}"
+                class="btn btn-warning w-100">
+
+                ✅ Validasi Tiket
+
+            </a>
+
+            {% else %}
+
+            <button
+                class="btn btn-secondary w-100"
+                disabled>
+
+                Sudah Digunakan
+
+            </button>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+{% empty %}
+
+<div class="col-12">
+
+    <div class="alert alert-info text-center shadow-sm">
+
+        Belum ada tiket.
+
+    </div>
+
+</div>
+
+{% endfor %}
+
+{% endblock %}

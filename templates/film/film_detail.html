@@ -1,0 +1,179 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="card shadow border-0 mb-4">
+
+    <div class="row g-0">
+
+        <div class="col-md-4">
+
+            {% if film.poster %}
+
+            <img
+                src="{{ film.poster.url }}"
+                class="img-fluid rounded-start w-100"
+                style="
+                height:100%;
+                max-height:600px;
+                object-fit:cover;">
+
+            {% else %}
+
+            <img
+                src="https://via.placeholder.com/400x600"
+                class="img-fluid rounded-start">
+
+            {% endif %}
+
+        </div>
+
+        <div class="col-md-8">
+
+            <div class="card-body p-4">
+
+                <h1 class="fw-bold">
+                    {{ film.judul }}
+                </h1>
+
+                <div class="mb-3">
+
+                    <span class="badge bg-primary">
+                        {{ film.genre }}
+                    </span>
+
+                    <span class="badge bg-warning text-dark">
+                        {{ film.rating_usia }}
+                    </span>
+
+                </div>
+
+                <hr>
+
+                <p>
+                    <strong>Durasi :</strong>
+                    {{ film.durasi }} Menit
+                </p>
+
+                <h4 class="mt-4">
+                    Sinopsis
+                </h4>
+
+                <p class="text-muted">
+                    {{ film.sinopsis }}
+                </p>
+
+                <div class="mt-4">
+
+                    <a
+                        href="{% url 'reservasi_create' %}"
+                        class="btn btn-success">
+
+                        <i class="bi bi-ticket-fill"></i>
+                        Pesan Tiket
+
+                    </a>
+
+                    <a
+                        href="{% url 'film_list' %}"
+                        class="btn btn-secondary">
+
+                        <i class="bi bi-arrow-left"></i>
+                        Kembali
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="card shadow border-0">
+
+    <div class="card-header bg-dark text-white">
+
+        <h5 class="mb-0">
+            Jadwal Tayang
+        </h5>
+
+    </div>
+
+    <div class="card-body">
+
+        {% if jadwal %}
+
+        <div class="table-responsive">
+
+            <table class="table table-hover">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Tanggal</th>
+                        <th>Jam</th>
+                        <th>Studio</th>
+                        <th>Harga</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for item in jadwal %}
+
+                    <tr>
+
+                        <td>
+                            {{ item.tanggal }}
+                        </td>
+
+                        <td>
+                            {{ item.jam_mulai }}
+                        </td>
+
+                        <td>
+                            {{ item.studio.nama_studio }}
+                        </td>
+
+                        <td>
+
+                            <span class="badge bg-success">
+
+                                Rp {{ item.harga_tiket }}
+
+                            </span>
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        {% else %}
+
+        <div class="alert alert-warning">
+
+            Belum ada jadwal tayang untuk film ini.
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

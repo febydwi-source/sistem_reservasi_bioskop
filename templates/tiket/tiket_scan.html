@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+
+    <div class="card shadow">
+
+        <div class="card-header bg-dark text-white">
+
+            <h4 class="mb-0">
+                🎫 Scan Tiket
+            </h4>
+
+        </div>
+
+        <div class="card-body">
+
+            <form method="post">
+
+                {% csrf_token %}
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+
+                        Kode Tiket
+
+                    </label>
+
+                    <input
+                        type="text"
+                        name="kode_tiket"
+                        class="form-control"
+                        placeholder="Contoh: TKT-ABC123">
+
+                </div>
+
+                <button
+                    type="submit"
+                    class="btn btn-primary">
+
+                    Validasi Tiket
+
+                </button>
+
+            </form>
+
+            {% if pesan %}
+
+            <div class="alert mt-3
+            {% if 'valid' in pesan %}
+            alert-success
+            {% else %}
+            alert-danger
+            {% endif %}
+            ">
+
+                {{ pesan }}
+
+            </div>
+
+            {% endif %}
+
+            {% if tiket %}
+
+            <hr>
+
+            <h5>Data Tiket</h5>
+
+            <p>
+                <strong>Kode:</strong>
+                {{ tiket.kode_tiket }}
+            </p>
+
+            <p>
+                <strong>Film:</strong>
+                {{ tiket.reservasi.jadwal.film.judul }}
+            </p>
+
+            <p>
+                <strong>User:</strong>
+                {{ tiket.reservasi.user.username }}
+            </p>
+
+            <p>
+                <strong>Kursi:</strong>
+                {{ tiket.reservasi.kursi.nomor_kursi }}
+            </p>
+
+            {% if tiket.waktu_scan %}
+
+            <p>
+
+                <strong>Waktu Scan:</strong>
+
+                {{ tiket.waktu_scan }}
+
+            </p>
+
+            {% endif %}
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

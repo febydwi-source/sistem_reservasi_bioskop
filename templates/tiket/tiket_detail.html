@@ -1,0 +1,172 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+
+<div class="col-lg-8">
+
+    <div class="card shadow-lg border-0">
+
+        <div class="card-header bg-dark text-white text-center">
+
+            <h2 class="mb-0">
+                🎫 E-TICKET BIOSKOP
+            </h2>
+
+        </div>
+
+        <div class="card-body p-4">
+
+            <div class="text-center mb-4">
+
+                <h3 class="fw-bold">
+
+                    {{ tiket.reservasi.jadwal.film.judul }}
+
+                </h3>
+
+                <span class="badge bg-primary">
+
+                    {{ tiket.reservasi.jadwal.film.genre }}
+
+                </span>
+
+            </div>
+
+            <hr>
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    <p>
+                        <strong>Kode Tiket</strong>
+                        <br>
+                        {{ tiket.kode_tiket }}
+                    </p>
+
+                    <p>
+                        <strong>Kode Reservasi</strong>
+                        <br>
+                        {{ tiket.reservasi.kode_reservasi }}
+                    </p>
+
+                    <p>
+                        <strong>Studio</strong>
+                        <br>
+                        {{ tiket.reservasi.jadwal.studio.nama_studio }}
+                    </p>
+
+                    <p>
+                        <strong>Kursi</strong>
+                        <br>
+                        {{ tiket.reservasi.kursi.nomor_kursi }}
+                    </p>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <p>
+                        <strong>Tanggal Tayang</strong>
+                        <br>
+                        {{ tiket.reservasi.jadwal.tanggal }}
+                    </p>
+
+                    <p>
+                        <strong>Jam Tayang</strong>
+                        <br>
+                        {{ tiket.reservasi.jadwal.jam_mulai }}
+                    </p>
+
+                    <p>
+                        <strong>Pemesan</strong>
+                        <br>
+                        {{ tiket.reservasi.user.username }}
+                    </p>
+
+                    <p>
+                        <strong>Diterbitkan</strong>
+                        <br>
+                        {{ tiket.diterbitkan_pada }}
+                    </p>
+
+                </div>
+
+            </div>
+
+            <hr>
+
+            {% if tiket.qr_code %}
+
+            <div class="text-center">
+
+                <img
+                    src="{{ tiket.qr_code.url }}"
+                    class="img-fluid shadow rounded"
+                    style="max-width:250px;">
+
+                <p class="mt-3 text-muted">
+
+                    Tunjukkan QR Code ini saat masuk studio.
+
+                </p>
+
+            </div>
+
+            {% endif %}
+
+            <hr>
+
+            {% if tiket.sudah_digunakan %}
+
+            <div class="alert alert-danger text-center">
+
+                Tiket Sudah Digunakan
+
+            </div>
+
+            {% else %}
+
+            <div class="alert alert-success text-center">
+
+                Tiket Aktif
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+        <div class="card-footer">
+
+            <div class="d-flex gap-2">
+
+                <a
+                    href="{% url 'tiket_saya' %}"
+                    class="btn btn-secondary flex-fill">
+
+                    ← Kembali
+
+                </a>
+
+                <a
+                    href="{% url 'tiket_pdf' tiket.pk %}"
+                    class="btn btn-success flex-fill">
+
+                    📄 Download PDF
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+{% endblock %}

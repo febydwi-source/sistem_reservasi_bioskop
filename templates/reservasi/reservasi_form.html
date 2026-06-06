@@ -1,0 +1,198 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="card shadow border-0 mb-4">
+
+<div class="card-body">
+
+    <h2 class="fw-bold mb-3">
+        🎟️ Reservasi Tiket
+    </h2>
+
+    <p class="text-muted">
+        Pilih jadwal film terlebih dahulu sebelum memilih kursi.
+    </p>
+
+    <form method="get">
+
+        <div class="mb-3">
+
+            <label class="form-label fw-semibold">
+
+                Jadwal Tayang
+
+            </label>
+
+            <select
+                name="jadwal"
+                class="form-select"
+                onchange="this.form.submit()">
+
+                <option value="">
+                    -- Pilih Jadwal --
+                </option>
+
+                {% for j in jadwals %}
+
+                <option
+                    value="{{ j.id }}"
+                    {% if selected_jadwal.id == j.id %}
+                    selected
+                    {% endif %}>
+
+                    {{ j.film.judul }}
+                    |
+                    {{ j.tanggal }}
+                    |
+                    {{ j.jam_mulai }}
+
+                </option>
+
+                {% endfor %}
+
+            </select>
+
+        </div>
+
+    </form>
+
+</div>
+
+</div>
+
+{% if selected_jadwal %}
+
+<div class="card shadow border-0">
+
+<div class="card-body">
+
+    <div class="text-center mb-4">
+
+        <h4 class="fw-bold">
+
+            {{ selected_jadwal.film.judul }}
+
+        </h4>
+
+        <p class="text-muted">
+
+            {{ selected_jadwal.tanggal }}
+            •
+            {{ selected_jadwal.jam_mulai }}
+            •
+            {{ selected_jadwal.studio.nama_studio }}
+
+        </p>
+
+    </div>
+
+    <div
+        class="bg-dark text-white text-center py-3 rounded mb-5">
+
+        🎬 LAYAR BIOSKOP 🎬
+
+    </div>
+
+    <form method="post">
+
+        {% csrf_token %}
+
+        <input
+            type="hidden"
+            name="jadwal"
+            value="{{ selected_jadwal.id }}">
+
+        <div class="row justify-content-center">
+
+            {% for kursi in kursi_list %}
+
+            <div class="col-3 col-md-1 mb-3">
+
+                {% if kursi.id in kursi_terisi %}
+
+                <button
+                    type="button"
+                    class="btn btn-danger w-100"
+                    disabled>
+
+                    {{ kursi.nomor_kursi }}
+
+                </button>
+
+                {% else %}
+
+                <input
+                    type="radio"
+                    class="btn-check"
+                    name="kursi"
+                    value="{{ kursi.id }}"
+                    id="kursi{{ kursi.id }}"
+                    required>
+
+                <label
+                    class="btn btn-outline-success w-100"
+                    for="kursi{{ kursi.id }}">
+
+                    {{ kursi.nomor_kursi }}
+
+                </label>
+
+                {% endif %}
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        <div class="text-center mt-4">
+
+            <button
+                class="btn btn-primary btn-lg px-5">
+
+                🎟️ Pesan Sekarang
+
+            </button>
+
+        </div>
+
+    </form>
+
+    <hr>
+
+    <div class="text-center">
+
+        <span class="badge bg-success me-2">
+            Kursi Tersedia
+        </span>
+
+        <span class="badge bg-danger me-2">
+            Kursi Terisi
+        </span>
+
+        <span class="badge bg-primary">
+            Kursi Dipilih
+        </span>
+
+    </div>
+
+</div>
+
+</div>
+
+<style>
+
+.btn-check:checked + .btn {
+
+    background-color: #0d6efd !important;
+    border-color: #0d6efd !important;
+    color: white !important;
+
+}
+
+</style>
+
+{% endif %}
+
+{% endblock %}

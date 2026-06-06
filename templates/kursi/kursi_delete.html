@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Hapus Kursi</h2>
+
+<p>
+
+Yakin ingin menghapus kursi
+
+<strong>
+    {{ kursi.nomor_kursi }}
+</strong>
+
+?
+
+</p>
+
+<form method="post">
+
+{% csrf_token %}
+
+<button
+    type="submit"
+    class="btn btn-danger">
+
+    Hapus
+
+</button>
+
+<a
+    href="{% url 'kursi_list' %}"
+    class="btn btn-secondary">
+
+    Batal
+
+</a>
+
+</form>
+
+{% endblock %}

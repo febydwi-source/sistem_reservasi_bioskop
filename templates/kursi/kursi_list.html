@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div>
+
+    <h2 class="fw-bold">
+        💺 Data Kursi
+    </h2>
+
+    <p class="text-muted mb-0">
+        Kelola seluruh kursi bioskop.
+    </p>
+
+</div>
+
+<a
+    href="{% url 'kursi_create' %}"
+    class="btn btn-success">
+
+    <i class="bi bi-plus-circle"></i>
+    Tambah Kursi
+
+</a>
+{% for kursi in data %}
+
+<div class="col-lg-3 col-md-4 mb-4">
+
+    <div class="card shadow-sm border-0 h-100">
+
+        <div class="card-body text-center">
+
+            <i class="bi bi-person-square display-5 text-primary"></i>
+
+            <h5 class="fw-bold mt-3">
+
+                {{ kursi.nomor_kursi }}
+
+            </h5>
+
+            <p class="text-muted mb-2">
+
+                {{ kursi.studio.nama_studio }}
+
+            </p>
+
+            <span class="badge bg-success">
+
+                Tersedia
+
+            </span>
+
+        </div>
+
+        <div class="card-footer bg-white border-0">
+
+            <div class="d-grid gap-2">
+
+                <a
+                    href="{% url 'kursi_update' kursi.id %}"
+                    class="btn btn-warning">
+
+                    Edit
+
+                </a>
+
+                <a
+                    href="{% url 'kursi_delete' kursi.id %}"
+                    class="btn btn-danger">
+
+                    Hapus
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% empty %}
+
+<div class="col-12">
+
+    <div class="alert alert-info text-center">
+
+        Belum ada data kursi.
+
+    </div>
+
+</div>
+
+{% endfor %}
+
+{% endblock %}

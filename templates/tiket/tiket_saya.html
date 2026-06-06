@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="mb-4">
+
+<h2 class="fw-bold">
+    🎫 Tiket Saya
+</h2>
+
+<p class="text-muted">
+    Tiket aktif yang siap digunakan untuk masuk bioskop.
+</p>
+
+</div>
+
+<div class="row">
+
+{% for tiket in data %}
+
+<div class="col-lg-6 mb-4">
+
+<div class="card border-0 shadow-lg overflow-hidden">
+
+    <div class="row g-0">
+
+        <div class="col-md-8 p-4">
+
+            <div class="d-flex justify-content-between">
+
+                <h4 class="fw-bold text-primary">
+
+                    {{ tiket.reservasi.jadwal.film.judul }}
+
+                </h4>
+
+                {% if tiket.sudah_digunakan %}
+
+                <span class="badge bg-danger">
+                    Digunakan
+                </span>
+
+                {% else %}
+
+                <span class="badge bg-success">
+                    Aktif
+                </span>
+
+                {% endif %}
+
+            </div>
+
+            <hr>
+
+            <p>
+                <strong>Kode Tiket</strong><br>
+                {{ tiket.kode_tiket }}
+            </p>
+
+            <p>
+                <strong>Studio</strong><br>
+                {{ tiket.reservasi.jadwal.studio.nama_studio }}
+            </p>
+
+            <p>
+                <strong>Kursi</strong><br>
+                {{ tiket.reservasi.kursi.nomor_kursi }}
+            </p>
+
+            <p>
+                <strong>Tanggal</strong><br>
+                {{ tiket.reservasi.jadwal.tanggal }}
+            </p>
+
+            <p>
+                <strong>Jam</strong><br>
+                {{ tiket.reservasi.jadwal.jam_mulai }}
+            </p>
+
+        </div>
+
+        <div class="col-md-4 bg-light d-flex flex-column justify-content-center align-items-center p-3">
+
+            {% if tiket.qr_code %}
+
+            <img
+                src="{{ tiket.qr_code.url }}"
+                class="img-fluid rounded shadow mb-3">
+
+            {% endif %}
+
+            
+            <a
+                href="{% url 'tiket_pdf' tiket.id %}"
+                class="btn btn-success btn-sm w-100">
+
+                📄 PDF
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+{% empty %}
+
+<div class="col-12">
+
+<div class="alert alert-info text-center shadow">
+
+    Anda belum memiliki tiket bioskop.
+
+</div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% endblock %}

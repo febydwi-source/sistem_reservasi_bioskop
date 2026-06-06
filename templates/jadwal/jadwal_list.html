@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+<div>
+
+    <h2 class="fw-bold">
+        🎬 Jadwal Tayang
+    </h2>
+
+    <p class="text-muted mb-0">
+
+        Pilih jadwal film favoritmu
+
+    </p>
+
+</div>
+
+{% if user.is_staff %}
+
+<a
+    href="{% url 'jadwal_create' %}"
+    class="btn btn-success">
+
+    <i class="bi bi-plus-circle"></i>
+    Tambah Jadwal
+
+</a>
+
+{% endif %}
+
+</div>
+
+<div class="row">
+
+{% for jadwal in jadwals %}
+
+<div class="col-lg-4 mb-4">
+
+<div class="card shadow border-0 h-100">
+
+    {% if jadwal.film.poster %}
+
+    <img
+        src="{{ jadwal.film.poster.url }}"
+        class="card-img-top"
+        style="height:350px; object-fit:cover;">
+
+    {% endif %}
+
+    <div class="card-body">
+
+        <h5 class="fw-bold">
+
+            {{ jadwal.film.judul }}
+
+        </h5>
+
+        <hr>
+
+        <p>
+
+            📅 {{ jadwal.tanggal }}
+
+        </p>
+
+        <p>
+
+            🕒 {{ jadwal.jam_mulai }}
+
+        </p>
+
+        <p>
+
+            🏢 {{ jadwal.studio.nama_studio }}
+
+        </p>
+
+        <p>
+
+            💰 Rp {{ jadwal.harga_tiket }}
+
+        </p>
+
+    </div>
+
+    <div class="card-footer bg-white border-0">
+
+        {% if user.is_staff %}
+
+        <a
+            href="{% url 'jadwal_update' jadwal.id %}"
+            class="btn btn-warning w-100 mb-2">
+
+            Edit
+
+        </a>
+
+        <a
+            href="{% url 'jadwal_delete' jadwal.id %}"
+            class="btn btn-danger w-100">
+
+            Hapus
+
+        </a>
+
+        {% else %}
+
+        <a
+            href="{% url 'reservasi_create' %}?jadwal={{ jadwal.id }}"
+            class="btn btn-success w-100">
+
+            🎟️ Pesan Tiket
+
+        </a>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+</div>
+
+{% empty %}
+
+<div class="col-12">
+
+<div class="alert alert-warning text-center">
+
+    Belum ada jadwal tayang.
+
+</div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% endblock %}

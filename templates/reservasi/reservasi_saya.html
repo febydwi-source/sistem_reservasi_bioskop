@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="mb-4">
+
+<h2 class="fw-bold">
+    🎟️ Reservasi Saya
+</h2>
+
+<p class="text-muted">
+
+    Riwayat pemesanan tiket bioskop Anda.
+
+</p>
+
+</div>
+
+<div class="row">
+
+{% for item in data %}
+
+<div class="col-lg-6 mb-4">
+
+<div class="card border-0 shadow h-100">
+
+    <div class="card-body">
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+
+            <h5 class="fw-bold mb-0">
+
+                {{ item.jadwal.film.judul }}
+
+            </h5>
+
+            {% if item.status == 'LUNAS' %}
+
+            <span class="badge bg-success">
+                LUNAS
+            </span>
+
+            {% elif item.status == 'PENDING' %}
+
+            <span class="badge bg-warning text-dark">
+                PENDING
+            </span>
+
+            {% else %}
+
+            <span class="badge bg-danger">
+                {{ item.status }}
+            </span>
+
+            {% endif %}
+
+        </div>
+
+        <hr>
+
+        <p>
+            <strong>Kode Reservasi</strong><br>
+            {{ item.kode_reservasi }}
+        </p>
+
+        <p>
+            <strong>Kursi</strong><br>
+            {{ item.kursi.nomor_kursi }}
+        </p>
+
+        <p>
+            <strong>Tanggal</strong><br>
+            {{ item.jadwal.tanggal }}
+        </p>
+
+        <p>
+            <strong>Jam</strong><br>
+            {{ item.jadwal.jam_mulai }}
+        </p>
+
+        <p>
+            <strong>Total</strong><br>
+            Rp {{ item.total_harga }}
+        </p>
+
+    </div>
+
+    <div class="card-footer bg-white border-0">
+
+        {% if item.status == 'PENDING' %}
+
+        <a
+            href="{% url 'pembayaran_create' item.id %}"
+            class="btn btn-primary w-100">
+
+            💳 Bayar Sekarang
+
+        </a>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+</div>
+
+{% empty %}
+
+<div class="col-12">
+
+<div class="alert alert-info text-center">
+
+    Belum ada reservasi.
+
+</div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+
+    <div class="col-md-6">
+
+        <div class="card shadow">
+
+            <div class="card-body">
+
+                <h3 class="mb-4">
+                    Tambah Reservasi
+                </h3>
+
+                <form method="POST">
+                    {% csrf_token %}
+                    
+                     <div class="mb-3">
+                        <label>Nama Reservasi</label>
+                        <input type="text" name="nama" class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Tanggal</label>
+                        <input type="date" name="tanggal" class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Waktu</label>
+                        <input type="time" name="waktu" class="form-control">
+                    </div>
+
+ <div class="mb-3">
+                        <label>Jumlah Orang</label>
+                        <input type="number" name="jumlah_orang" class="form-control">
+                    </div>
+
+                    <button type="submit" class="btn btn-success w-100">
+                        Simpan Reservasi
+                    </button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
